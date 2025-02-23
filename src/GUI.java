@@ -1,8 +1,9 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
 class RoundedTextField extends JTextField {
-    private int arcSize = 15; // Zaokrąglenie rogów
+    private int arcSize = 15;
 
     public RoundedTextField(int columns) {
         super(columns);
@@ -14,10 +15,8 @@ class RoundedTextField extends JTextField {
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcSize, arcSize);
-
         super.paintComponent(g);
         g2.dispose();
     }
@@ -26,7 +25,6 @@ class RoundedTextField extends JTextField {
     protected void paintBorder(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         g2.setColor(Color.GRAY);
         g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, arcSize, arcSize);
         g2.dispose();
@@ -48,21 +46,9 @@ class RoundedButton extends JButton {
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcSize, arcSize);
-
         super.paintComponent(g);
-        g2.dispose();
-    }
-
-    @Override
-    protected void paintBorder(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        g2.setColor(getForeground());
-        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, arcSize, arcSize);
         g2.dispose();
     }
 }
@@ -71,24 +57,31 @@ public class GUI extends JFrame {
     private RoundedTextField heightField, weightField, ageField;
     private JComboBox<String> genderBox;
     private JLabel resultLabel, correctedResultLabel, categoryLabel;
+    private JTable bmiTable;
+    private JScrollPane tableScrollPane;
 
     public GUI() {
         setTitle("BMI Calculator");
-        setSize(400, 400);
+        setSize(400, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Wyśrodkowanie okna na ekranie
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        JPanel panel = new JPanel();
+        JLabel titleLabel = new JLabel("BMI Calculator", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBackground(Color.decode("#657a86"));
+        titleLabel.setOpaque(true);
+        add(titleLabel, BorderLayout.NORTH);
+
+        JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(Color.decode("#657a86"));
-        panel.setLayout(new GridBagLayout()); // Wyśrodkowanie panelu w oknie
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(6, 2, 10, 10));
+        JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10));
         formPanel.setBackground(Color.decode("#657a86"));
 
         formPanel.add(new JLabel("Age:"));
@@ -109,13 +102,10 @@ public class GUI extends JFrame {
 
         RoundedButton calculateButton = new RoundedButton("Calculate BMI");
         formPanel.add(calculateButton);
-
         resultLabel = new JLabel("Your BMI: ");
         formPanel.add(resultLabel);
-
         correctedResultLabel = new JLabel("Corrected BMI: ");
         formPanel.add(correctedResultLabel);
-
         categoryLabel = new JLabel("");
         formPanel.add(categoryLabel);
 
@@ -123,64 +113,45 @@ public class GUI extends JFrame {
         gbc.gridy = 0;
         panel.add(formPanel, gbc);
 
-        add(panel, BorderLayout.CENTER);
+        String[] columnNames = {"BMI Range", "Category"};
+        Object[][] data = {
+                {"< 16", "Severely Underweight"},
+                {"16.00 - 18.4", "Underweight"},
+                {"18.5 - 24.9", "Normal"},
+                {"25.0 - 29.9", "Overweight"},
+                {"30.0 - 34.9", "Moderately Obese"},
+                {"35.0 -39.9", "Severely Obese"},
+                {">= 40.00", "Morbidly Obese"}
+        };
 
-        calculateButton.addActionListener(e -> {
-            try {
-                double height = Double.parseDouble(heightField.getText());
-                double weight = Double.parseDouble(weightField.getText());
-                int age = Integer.parseInt(ageField.getText());
-                String gender = (String) genderBox.getSelectedItem();
-
-                double bmi = CalculatorBMI.calculateBMI(weight, height);
-                String category = CalculatorBMI.getBMICategory(bmi);
-
-                resultLabel.setText(String.format("Your BMI: %.2f", bmi));
-
-                if (age >= 18) {
-                    double correctedBMI = CalculatorBMI.calculateCorrectedBMI(bmi, gender, age);
-                    correctedResultLabel.setText(String.format("Corrected BMI: %.2f", correctedBMI));
-                } else {
-                    correctedResultLabel.setText("Corrected BMI: Does not apply to children!");
-                }
-
-                categoryLabel.setText("You're in " + category + " category.");
-
-                showBmiTable();
-
-            } catch (NumberFormatException ex) {
-                resultLabel.setText("Invalid data!");
-                correctedResultLabel.setText("");
-                categoryLabel.setText(""); // Ukrycie kategorii w razie błędu
-            } catch (IllegalArgumentException ex) {
-                resultLabel.setText(ex.getMessage());
-                correctedResultLabel.setText("");
-                categoryLabel.setText(""); // Ukrycie kategorii w razie błędu
+        bmiTable = new JTable(data, columnNames);
+        bmiTable.setEnabled(false);
+        bmiTable.setRowHeight(25);
+        bmiTable.setPreferredScrollableViewportSize(new Dimension(350, 150));
+        bmiTable.setFillsViewportHeight(true);
+        bmiTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(row % 2 == 0 ? Color.decode("#657a86") : Color.WHITE);
+                return c;
             }
         });
 
-        setVisible(true);
-    }
+        tableScrollPane = new JScrollPane(bmiTable);
+        tableScrollPane.setVisible(false);
+        gbc.gridy = 1;
+        panel.add(tableScrollPane, gbc);
+        add(panel, BorderLayout.CENTER);
 
-    public void showBmiTable() {
-        String[]columnNames = {"BMI Range", "Category"};
-        Object[][] data = {
-                {"< 16 ", "Severely Underweight"},
-                {" 16.00 - 18.4", "Underweight"},
-                {"18.5 - 24.9", "Normal"},
-                {"25.00 - 29.9", "Overweight"},
-                {"30.00 - 34.9", "Moderately Obese"},
-                {"35.00 - 39.9", "Severely Obese"},
-                {">40.00","Morbidly Obese"}
-        };
-        JTable bmiTable = new JTable(data, columnNames);
-        bmiTable.setEnabled(false);
-        JScrollPane scrollPane = new JScrollPane(bmiTable);
-        JDialog dialog = new JDialog(GUI.this, "BMI Calculator", true);
-        dialog.setSize(300,200);
-        dialog.setLocationRelativeTo(this);
-        dialog.add(scrollPane);
-        dialog.setVisible(true);
+        calculateButton.addActionListener(e -> {
+            tableScrollPane.setVisible(true);
+            revalidate();
+            repaint();
+        });
+
+        setVisible(true);
     }
 
     public static void main(String[] args) {
