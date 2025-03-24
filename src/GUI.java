@@ -139,10 +139,12 @@ public class GUI extends JFrame {
         formPanel.add(calculateButton, gbc);
 
         resultLabel = new JLabel("Your BMI: ");
+        resultLabel.setVisible(false);
         gbc.gridy = 8;
         formPanel.add(resultLabel, gbc);
 
         caloricDemandLabel = new JLabel("Caloric Demand: ");
+        caloricDemandLabel.setVisible(false);
         gbc.gridy = 9;
         formPanel.add(caloricDemandLabel, gbc);
 
@@ -199,6 +201,8 @@ public class GUI extends JFrame {
             } else {
                 caloricDemandLabel.setText("");
             }
+            resultLabel.setVisible(true);
+            caloricDemandLabel.setVisible(true);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Invalid input. Please enter valid numbers.");
