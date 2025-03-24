@@ -55,103 +55,145 @@ class RoundedButton extends JButton {
 
 public class GUI extends JFrame {
     private RoundedTextField heightField, weightField, ageField;
-    private JComboBox<String> genderBox;
-    private JLabel resultLabel, correctedResultLabel, categoryLabel;
-    private JTable bmiTable;
-    private JScrollPane tableScrollPane;
+    private JComboBox<String> genderBox, activityBox, goalBox; // Nowy JComboBox dla celu
+    private JLabel resultLabel, caloricDemandLabel;
 
     public GUI() {
-        setTitle("BMI Calculator");
-        setSize(400, 600);
+        setTitle("BMI & Caloric Demand Calculator");
+        setSize(400, 700); // Zwiększono rozmiar, aby pomieścić dodatkowe pole
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("BMI Calculator", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        // Tytuł
+        JLabel titleLabel = new JLabel("BMI & Caloric Demand Calculator", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 20));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setBackground(Color.decode("#657a86"));
         titleLabel.setOpaque(true);
         add(titleLabel, BorderLayout.NORTH);
 
+        // Panel główny
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(Color.decode("#657a86"));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+        // Panel formularza
+        JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBackground(Color.decode("#657a86"));
+        gbc.anchor = GridBagConstraints.LINE_END;
 
-        formPanel.add(new JLabel("Age:"));
-        ageField = new RoundedTextField(5);
-        formPanel.add(ageField);
+        // Age
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        formPanel.add(new JLabel("Age:"), gbc);
+        ageField = new RoundedTextField(10);
+        gbc.gridx = 1;
+        formPanel.add(ageField, gbc);
 
-        formPanel.add(new JLabel("Gender:"));
+        // Gender
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formPanel.add(new JLabel("Gender:"), gbc);
         genderBox = new JComboBox<>(new String[]{"m", "f"});
-        formPanel.add(genderBox);
+        gbc.gridx = 1;
+        formPanel.add(genderBox, gbc);
 
-        formPanel.add(new JLabel("Height (cm):"));
-        heightField = new RoundedTextField(5);
-        formPanel.add(heightField);
+        // Height
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        formPanel.add(new JLabel("Height (cm):"), gbc);
+        heightField = new RoundedTextField(10);
+        gbc.gridx = 1;
+        formPanel.add(heightField, gbc);
 
-        formPanel.add(new JLabel("Weight (kg):"));
-        weightField = new RoundedTextField(5);
-        formPanel.add(weightField);
+        // Weight
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        formPanel.add(new JLabel("Weight (kg):"), gbc);
+        weightField = new RoundedTextField(10);
+        gbc.gridx = 1;
+        formPanel.add(weightField, gbc);
 
-        RoundedButton calculateButton = new RoundedButton("Calculate BMI");
-        formPanel.add(calculateButton);
+        // Activity Level
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        formPanel.add(new JLabel("Activity Level:"), gbc);
+        String[] activityLevels = {"Bed rest", "Sedentary", "Light exercise", "Moderate", "Heavy", "Very heavy"};
+        activityBox = new JComboBox<>(activityLevels);
+        gbc.gridx = 1;
+        formPanel.add(activityBox, gbc);
+
+        // Goal (Cel redukcji masy)
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        formPanel.add(new JLabel("Goal:"), gbc);
+        String[] goals = {"Maintain weight", "Weight loss", "Weight gain"};
+        goalBox = new JComboBox<>(goals);
+        gbc.gridx = 1;
+        formPanel.add(goalBox, gbc);
+
+        // Calculate Button
+        RoundedButton calculateButton = new RoundedButton("Calculate");
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        formPanel.add(calculateButton, gbc);
+
+        // Result Labels
         resultLabel = new JLabel("Your BMI: ");
-        formPanel.add(resultLabel);
-        correctedResultLabel = new JLabel("Corrected BMI: ");
-        formPanel.add(correctedResultLabel);
-        categoryLabel = new JLabel("");
-        formPanel.add(categoryLabel);
+        gbc.gridy = 7;
+        formPanel.add(resultLabel, gbc);
 
+        caloricDemandLabel = new JLabel("Caloric Demand: ");
+        gbc.gridy = 8;
+        formPanel.add(caloricDemandLabel, gbc);
+
+        // Dodanie formularza do panelu
         gbc.gridx = 0;
         gbc.gridy = 0;
         panel.add(formPanel, gbc);
-
-        String[] columnNames = {"BMI Range", "Category"};
-        Object[][] data = {
-                {"< 16", "Severely Underweight"},
-                {"16.00 - 18.4", "Underweight"},
-                {"18.5 - 24.9", "Normal"},
-                {"25.0 - 29.9", "Overweight"},
-                {"30.0 - 34.9", "Moderately Obese"},
-                {"35.0 -39.9", "Severely Obese"},
-                {">= 40.00", "Morbidly Obese"}
-        };
-
-        bmiTable = new JTable(data, columnNames);
-        bmiTable.setEnabled(false);
-        bmiTable.setRowHeight(25);
-        bmiTable.setPreferredScrollableViewportSize(new Dimension(350, 150));
-        bmiTable.setFillsViewportHeight(true);
-        bmiTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(row % 2 == 0 ? Color.decode("#657a86") : Color.WHITE);
-                return c;
-            }
-        });
-
-        tableScrollPane = new JScrollPane(bmiTable);
-        tableScrollPane.setVisible(false);
-        gbc.gridy = 1;
-        panel.add(tableScrollPane, gbc);
         add(panel, BorderLayout.CENTER);
 
-        calculateButton.addActionListener(e -> {
-            tableScrollPane.setVisible(true);
-            revalidate();
-            repaint();
-        });
+        // Akcja przycisku
+        calculateButton.addActionListener(e -> calculateResults());
 
         setVisible(true);
+    }
+
+    private void calculateResults() {
+        try {
+            double weight = Double.parseDouble(weightField.getText());
+            double height = Double.parseDouble(heightField.getText());
+            int age = Integer.parseInt(ageField.getText());
+            String gender = (String) genderBox.getSelectedItem();
+            int activityLevel = activityBox.getSelectedIndex() + 1;
+            String goal = (String) goalBox.getSelectedItem();
+
+            // Obliczanie BMI
+            UserData user = new UserData(weight, height, age, gender);
+            double bmi = CalculatorBMI.calculateBMI(weight, height);
+            String bmiCategory = CalculatorBMI.getBMICategory(bmi);
+
+            // Obliczanie zapotrzebowania kalorycznego
+            CaloricDemand caloricDemand = new CaloricDemand(user);
+            double tdee = caloricDemand.calculateCaloricDemand(activityLevel);
+
+            // Dostosowanie zapotrzebowania w zależności od celu
+            if (goal.equals("Weight loss")) {
+                tdee *= 0.8; // Redukcja o 20%
+            } else if (goal.equals("Weight gain")) {
+                tdee *= 1.1; // Zwiększenie o 10%
+            }
+
+            resultLabel.setText(String.format("BMI: %.2f (%s)", bmi, bmiCategory));
+            caloricDemandLabel.setText(String.format("Caloric Demand: %.2f kcal", tdee));
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid input. Please enter valid numbers.");
+        }
     }
 
     public static void main(String[] args) {
