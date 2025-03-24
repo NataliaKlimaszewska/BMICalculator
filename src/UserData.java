@@ -4,7 +4,7 @@ public class UserData {
     protected int age;
     protected String gender;
 
-    // Konstruktor do użycia w GUI
+
     public UserData(double weight, double height, int age, String gender) {
         this.weight = weight;
         this.height = height;
