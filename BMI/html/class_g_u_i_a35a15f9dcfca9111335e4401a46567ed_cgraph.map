@@ -1,0 +1,11 @@
+<map id="GUI.GUI" name="GUI.GUI">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,64,79,91"/>
+<area shape="rect" id="Node000002" href="$class_g_u_i.html#a5e49fd9e538a170c5175f600aa3b0206" title=" " alt="" coords="127,64,273,91"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,75,111,75,111,80,79,80"/>
+<area shape="rect" id="Node000003" href="$class_calculator_b_m_i.html#a4c075824c379f0c6be1ee35c1aa825e7" title=" " alt="" coords="333,5,517,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="249,61,320,41,351,34,352,39,322,47,251,66"/>
+<area shape="rect" id="Node000004" href="$class_caloric_demand.html#ab069e9b2ca717a7f341a2bc769f99585" title=" " alt="" coords="321,56,529,99"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="273,75,305,75,305,80,273,80"/>
+<area shape="rect" id="Node000005" href="$class_calculator_b_m_i.html#a7bad9c5c0b75c05af3a38117f0d4a1e5" title=" " alt="" coords="324,123,527,149"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="251,89,322,108,352,116,351,121,320,113,249,94"/>
+</map>

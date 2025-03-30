@@ -1,0 +1,75 @@
+\doxysection{Calculator\+BMI Class Reference}
+\hypertarget{class_calculator_b_m_i}{}\label{class_calculator_b_m_i}\index{CalculatorBMI@{CalculatorBMI}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static double \mbox{\hyperlink{class_calculator_b_m_i_a4c075824c379f0c6be1ee35c1aa825e7}{calculate\+BMI}} (double weight, double height)
+\item 
+static String \mbox{\hyperlink{class_calculator_b_m_i_a7bad9c5c0b75c05af3a38117f0d4a1e5}{get\+BMICategory}} (double bmi)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class to calculate Body Mass Index (BMI) and categorize it into different BMI categories. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_calculator_b_m_i_a4c075824c379f0c6be1ee35c1aa825e7}\index{CalculatorBMI@{CalculatorBMI}!calculateBMI@{calculateBMI}}
+\index{calculateBMI@{calculateBMI}!CalculatorBMI@{CalculatorBMI}}
+\doxysubsubsection{\texorpdfstring{calculateBMI()}{calculateBMI()}}
+{\footnotesize\ttfamily \label{class_calculator_b_m_i_a4c075824c379f0c6be1ee35c1aa825e7} 
+static double Calculator\+BMI.\+calculate\+BMI (\begin{DoxyParamCaption}\item[{double}]{weight}{, }\item[{double}]{height}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Calculates the Body Mass Index (BMI) based on the provided weight and height.
+
+
+\begin{DoxyParams}{Parameters}
+{\em weight} & The weight of the person in kilograms. \\
+\hline
+{\em height} & The height of the person in centimeters. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The calculated BMI value. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & If weight or height is less than or equal to zero. \\
+\hline
+\end{DoxyExceptions}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_calculator_b_m_i_a4c075824c379f0c6be1ee35c1aa825e7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_calculator_b_m_i_a7bad9c5c0b75c05af3a38117f0d4a1e5}\index{CalculatorBMI@{CalculatorBMI}!getBMICategory@{getBMICategory}}
+\index{getBMICategory@{getBMICategory}!CalculatorBMI@{CalculatorBMI}}
+\doxysubsubsection{\texorpdfstring{getBMICategory()}{getBMICategory()}}
+{\footnotesize\ttfamily \label{class_calculator_b_m_i_a7bad9c5c0b75c05af3a38117f0d4a1e5} 
+static String Calculator\+BMI.\+get\+BMICategory (\begin{DoxyParamCaption}\item[{double}]{bmi}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Returns the BMI category based on the calculated BMI value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em bmi} & The calculated BMI value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string representing the BMI category. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_calculator_b_m_i_a7bad9c5c0b75c05af3a38117f0d4a1e5_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_calculator_b_m_i_8java}{Calculator\+BMI.\+java}}\end{DoxyCompactItemize}

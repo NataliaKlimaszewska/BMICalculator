@@ -1,0 +1,89 @@
+\doxysection{Caloric\+Demand Class Reference}
+\hypertarget{class_caloric_demand}{}\label{class_caloric_demand}\index{CaloricDemand@{CaloricDemand}}
+
+
+Collaboration diagram for Caloric\+Demand\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=165pt]{class_caloric_demand__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_caloric_demand_a65967698f14e7a258b7114a59d78b637}{Caloric\+Demand}} (\mbox{\hyperlink{class_user_data}{User\+Data}} \mbox{\hyperlink{class_caloric_demand_ad808f64ab1a85eb59f390ac9cf08cd7a}{user\+Data}})
+\item 
+double \mbox{\hyperlink{class_caloric_demand_ab069e9b2ca717a7f341a2bc769f99585}{calculate\+Caloric\+Demand}} (int option)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_user_data}{User\+Data}} \mbox{\hyperlink{class_caloric_demand_ad808f64ab1a85eb59f390ac9cf08cd7a}{user\+Data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class calculates the caloric demand (TDEE) of a user based on their weight, height, age, gender, and activity level using the Mifflin-\/\+St Jeor equation for BMR calculation. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_caloric_demand_a65967698f14e7a258b7114a59d78b637}\index{CaloricDemand@{CaloricDemand}!CaloricDemand@{CaloricDemand}}
+\index{CaloricDemand@{CaloricDemand}!CaloricDemand@{CaloricDemand}}
+\doxysubsubsection{\texorpdfstring{CaloricDemand()}{CaloricDemand()}}
+{\footnotesize\ttfamily \label{class_caloric_demand_a65967698f14e7a258b7114a59d78b637} 
+Caloric\+Demand.\+Caloric\+Demand (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_user_data}{User\+Data}}}]{user\+Data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor to initialize the \doxylink{class_caloric_demand}{Caloric\+Demand} object with the user\textquotesingle{}s data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Data} & The \doxylink{class_user_data}{User\+Data} object containing the user\textquotesingle{}s weight, height, age, and gender. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_caloric_demand_ab069e9b2ca717a7f341a2bc769f99585}\index{CaloricDemand@{CaloricDemand}!calculateCaloricDemand@{calculateCaloricDemand}}
+\index{calculateCaloricDemand@{calculateCaloricDemand}!CaloricDemand@{CaloricDemand}}
+\doxysubsubsection{\texorpdfstring{calculateCaloricDemand()}{calculateCaloricDemand()}}
+{\footnotesize\ttfamily \label{class_caloric_demand_ab069e9b2ca717a7f341a2bc769f99585} 
+double Caloric\+Demand.\+calculate\+Caloric\+Demand (\begin{DoxyParamCaption}\item[{int}]{option}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Calculates the total daily energy expenditure (TDEE) based on the user\textquotesingle{}s BMR and activity level.
+
+
+\begin{DoxyParams}{Parameters}
+{\em option} & The activity level option selected by the user\+: 1 -\/ Bed rest 2 -\/ Sedentary 3 -\/ Light exercise 4 -\/ Moderate exercise 5 -\/ Heavy exercise 6 -\/ Very heavy exercise \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The user\textquotesingle{}s TDEE (caloric demand) based on their BMR and activity level. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & If an invalid gender or activity level option is provided. \\
+\hline
+\end{DoxyExceptions}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_caloric_demand_ab069e9b2ca717a7f341a2bc769f99585_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_caloric_demand_ad808f64ab1a85eb59f390ac9cf08cd7a}\index{CaloricDemand@{CaloricDemand}!userData@{userData}}
+\index{userData@{userData}!CaloricDemand@{CaloricDemand}}
+\doxysubsubsection{\texorpdfstring{userData}{userData}}
+{\footnotesize\ttfamily \label{class_caloric_demand_ad808f64ab1a85eb59f390ac9cf08cd7a} 
+\mbox{\hyperlink{class_user_data}{User\+Data}} Caloric\+Demand.\+user\+Data\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_caloric_demand_8java}{Caloric\+Demand.\+java}}\end{DoxyCompactItemize}

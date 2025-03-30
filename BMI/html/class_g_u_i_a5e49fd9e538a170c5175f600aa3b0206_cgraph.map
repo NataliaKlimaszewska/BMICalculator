@@ -1,0 +1,9 @@
+<map id="GUI.calculateResults" name="GUI.calculateResults">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,64,152,91"/>
+<area shape="rect" id="Node000002" href="$class_calculator_b_m_i.html#a4c075824c379f0c6be1ee35c1aa825e7" title=" " alt="" coords="212,5,396,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,61,199,41,229,34,231,39,200,47,129,66"/>
+<area shape="rect" id="Node000003" href="$class_caloric_demand.html#ab069e9b2ca717a7f341a2bc769f99585" title=" " alt="" coords="200,56,408,99"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="152,75,184,75,184,80,152,80"/>
+<area shape="rect" id="Node000004" href="$class_calculator_b_m_i.html#a7bad9c5c0b75c05af3a38117f0d4a1e5" title=" " alt="" coords="202,123,406,149"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="129,89,200,108,231,116,229,121,199,113,128,94"/>
+</map>
